@@ -10,7 +10,6 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddMudServices();
 
-builder.Services.AddCors(options => { options.AddPolicy("AllowSpecificOrigin", builder => builder.WithOrigins("http://polisapi:8081", "http://polisapi:8081/swagger").AllowAnyHeader().AllowAnyMethod()); });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,7 +23,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
-app.UseCors("AllowSpecificOrigin");
 app.UseRouting();
 
 app.MapBlazorHub();

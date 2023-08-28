@@ -417,13 +417,9 @@
         {
             _processing = true;
             selectedCities = string.Join(";", optionsCity);
-            //var res = await client.GetAsync($"http://polisapi:8081/Stad?searchWord={selectedCities}");
-            var res = await client.GetAsync($"http://polisapi.internal.gentlebush-8ad4885e.westeurope.azurecontainerapps.io/Stad?searchWord={selectedCities}");
+            string apiSecret = Environment.GetEnvironmentVariable("ApiSecret");
+            var res = await client.GetAsync($"https://polisapi-function-app.azurewebsites.net/api/City?code={apiSecret}==&searchWord={selectedCities}");
 
-            if (!res.IsSuccessStatusCode)
-            {
-                res = await client.GetAsync($"http://host.docker.internal:8081/Stad?searchWord={selectedCities}");
-            }
 
             var content = await res.Content.ReadAsStringAsync();
             crimeList = JsonConvert.DeserializeObject<List<CityDTO>>(content);
