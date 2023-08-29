@@ -418,7 +418,7 @@
             _processing = true;
             selectedCities = string.Join(";", optionsCity);
             string apiSecret = Environment.GetEnvironmentVariable("ApiSecret");
-            var res = await client.GetAsync($"https://polisapi-function-app.azurewebsites.net/api/City?code={apiSecret}&searchWord={selectedCities}");
+            var res = await client.GetAsync($"https://polisapi.azurewebsites.net/api/City?code={apiSecret}&searchWord={selectedCities}");
             errorMessage = res.ReasonPhrase;
             var content = await res.Content.ReadAsStringAsync();
             crimeList = JsonConvert.DeserializeObject<List<CityDTO>>(content);
